@@ -63,12 +63,15 @@ namespace GestaoCompras.Models
         [Required(ErrorMessage = "O {0} é obrigatório")]
         [Display(Name = "Tipo Empresa")]
         public TipoEmpresa TipoEmpresa { get; set; }
-        public DateTime DataConstituicao { get; set; }
+        [Display(Name = " Data Constituição")]
+
+        public DateTime? DataConstituicao { get; set; }
         [Required(ErrorMessage = "O {0} é obrigatório")]
         [Display(Name = "Porte")]
         public Porte Porte { get; set; }
         [Display(Name = "Telefone 1")]
         [StringLength(50)]
+        [Required(ErrorMessage = "O {0} é obrigatório")]
 
         public string Telefone1 { get; set; }
         [Display(Name = "Telefone 2")]
@@ -89,19 +92,21 @@ namespace GestaoCompras.Models
         public string EmailPrincipal { get; set; }
         [Display(Name = "Caracterização do Capital ")]
 
-        public decimal CaracterizacaoCapital { get; set; }
+        public decimal? CaracterizacaoCapital { get; set; }
 
 
         [Display(Name = "Quantidade Quota")]
-        public decimal QuantidadeQuota { get; set; }
+        public decimal? QuantidadeQuota { get; set; }
 
 
         [Display(Name = "Valor Cota")]
-        public decimal ValorCota { get; set; }
+        public decimal? ValorCota { get; set; }
 
+
+        [Display(Name = "Capital Social")]
 
         [Required(ErrorMessage = "O {0} é obrigatório")]
-        [Display(Name = "Capital Social")]
+
         public decimal CapitalSocial { get; set; }
         [Required(ErrorMessage = "O {0} é obrigatório")]
         [Display(Name = "Nacional")]

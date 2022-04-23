@@ -13,39 +13,21 @@ namespace GestaoCompras.Controllers
 {
     public class FornecedorJuridicoController : Controller
     {
-        private readonly DBContext _context;
 
-        public FornecedorJuridicoController(DBContext context)
+        public IFornecedorJuridicoService _fornecedorJuridicoService;
+
+        public FornecedorJuridicoController(IFornecedorJuridicoService fornecedorJuridicoService)
         {
-            _context = context;
+            _fornecedorJuridicoService = fornecedorJuridicoService;
         }
 
         // GET: FornecedorJuridico
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string cpf, string nome, string nacional)
         {
             ViewData["Title"] = "Listar Fornecedores Juridicos";
 
-            return View(await _context.FornecedorJuridico.ToListAsync());
+            return View(await _fornecedorJuridicoService.Index(cpf, nome, nacional));
         }
-
-        // GET: FornecedorJuridico/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var FornecedorJuridico = await _context.FornecedorJuridico
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (FornecedorJuridico == null)
-            {
-                return NotFound();
-            }
-
-            return View(FornecedorJuridico);
-        }
-
         // GET: FornecedorJuridico/Create
         public IActionResult Create()
         {
@@ -53,66 +35,14 @@ namespace GestaoCompras.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create(FornecedorFisico fornecedorFisico)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        fornecedorFisico.Cpf = fornecedorFisico.Cpf.Replace(".", "").Replace("-", "");
-
-        //        if (fornecedorFisico.Id == 0)
-        //        {
-        //            fornecedorFisico.DataCadastro = DateTime.UtcNow;
-
-        //            await _context.AddAsync(fornecedorFisico);
-        //        }
-        //        else
-        //        {
-        //            fornecedorFisico.DataUltimaAtualizacao = DateTime.UtcNow;
-        //            _context.Entry(fornecedorFisico).Property(x => x.Id).IsModified = false;
-
-        //            _context.Update(fornecedorFisico);
-
-        //        }
-
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-
-        //    }
-        //    return View(fornecedorFisico);
-
-        //}
-
-
-
-
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(FornecedorJuridico fornecedorJuridico)
         {
             if (ModelState.IsValid)
             {
-                fornecedorJuridico.Cnpj = fornecedorJuridico.Cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
+                await _fornecedorJuridicoService.Create(fornecedorJuridico);
 
-                if (fornecedorJuridico.Id == 0)
-                {
-                    fornecedorJuridico.DataCadastro = DateTime.UtcNow;
-
-                    await _context.AddAsync(fornecedorJuridico);
-                }
-                else
-                {
-                    fornecedorJuridico.DataUltimaAtualizacao = DateTime.UtcNow;
-                    _context.Entry(fornecedorJuridico).Property(x => x.Id).IsModified = false;
-
-                    _context.Update(fornecedorJuridico);
-
-                }
-
-                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
 
             }
@@ -120,15 +50,14 @@ namespace GestaoCompras.Controllers
 
         }
 
-        // GET: FornecedorJuridico/Edit/5
+        // GET: FornecedorJuridico/ID
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var FornecedorJuridico = await _context.FornecedorJuridico.FindAsync(id);
+            var FornecedorJuridico = await _fornecedorJuridicoService.Edit(id);
             if (FornecedorJuridico == null)
             {
                 return NotFound();
@@ -137,18 +66,13 @@ namespace GestaoCompras.Controllers
 
             return View("Create", FornecedorJuridico);
         }
+        // DELETE: FornecedorJuridico/ID
 
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var FornecedorJuridico = await _context.FornecedorJuridico.FindAsync(id);
-            _context.FornecedorJuridico.Remove(FornecedorJuridico);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            await _fornecedorJuridicoService.DeleteConfirmed(id);
 
-        private bool FornecedorJuridicoExists(int id)
-        {
-            return _context.FornecedorJuridico.Any(e => e.Id == id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

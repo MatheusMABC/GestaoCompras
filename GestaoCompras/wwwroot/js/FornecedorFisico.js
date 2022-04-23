@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     $("#TipoPessoaFisica").val(1);
+
     $('#TipoPessoaFisica').prop('disabled', true);
     $("#DataUltimaAtualizacao").prop('disabled', true);
     $("#Cpf").mask('000.000.000-00');

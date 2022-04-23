@@ -1,4 +1,5 @@
 using GestaoCompras.Context;
+using GestaoCompras.Controllers;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
 
@@ -8,6 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Fastest);
 builder.Services.AddSqlServer<DBContext>(builder.Configuration.GetConnectionString("GestaoCompras"));
+
+builder.Services.AddScoped<IFornecedorFisicoService, FornecedorFisicoService>();
+builder.Services.AddScoped<IFornecedorJuridicoService, FornecedorJuridicoService>();
+
 
 builder.Services.AddResponseCompression(options =>
 {

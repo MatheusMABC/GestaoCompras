@@ -13,33 +13,20 @@ namespace GestaoCompras.Controllers
 {
     public class FornecedorFisicoController : Controller
     {
-        private readonly DBContext _context;
+        public IFornecedorFisicoService _fornecedorFisicoService;
 
-        public FornecedorFisicoController(DBContext context)
+        public FornecedorFisicoController(IFornecedorFisicoService fornecedorFisicoService)
         {
-            _context = context;
+            _fornecedorFisicoService = fornecedorFisicoService;
         }
 
         // GET: FornecedorFisico
         public async Task<IActionResult> Index(string cpf, string nome, string nacional)
         {
             ViewData["Title"] = "Lista de Fornecedores Fisicos";
-            var listaFornecedoresFisicos = await _context.FornecedorFisico.ToListAsync();
-            if (cpf != null)
-            {
-                listaFornecedoresFisicos.Where(t => t.Cpf.Trim() == cpf.Trim().Replace(".", "").Replace("-", "")).ToList();
-            }
-            if (nome != null)
-            {
-                listaFornecedoresFisicos.Where(t => t.Nome.Trim().ToUpper() == nome.Trim().ToUpper()).ToList();
 
-            }
-            if (nacional != null)
-            {
-                var opcaoNacional = Convert.ToInt32(nacional) == 0 ? "Sim" : "Não";
-                listaFornecedoresFisicos.Where(t => Convert.ToString(t.NacionalFisico).Trim().ToUpper() == opcaoNacional.Trim().ToUpper()).ToList();
+            var listaFornecedoresFisicos = _fornecedorFisicoService.Index(cpf, nome, nacional).Result;
 
-            }
             return View(listaFornecedoresFisicos);
         }
 
@@ -57,25 +44,8 @@ namespace GestaoCompras.Controllers
         {
             if (ModelState.IsValid)
             {
-                fornecedorFisico.Cpf = fornecedorFisico.Cpf.Replace(".", "").Replace("-", "");
-
-                if (fornecedorFisico.Id == 0)
-                {
-                    fornecedorFisico.DataCadastro = DateTime.UtcNow;
-
-                    await _context.AddAsync(fornecedorFisico);
-                }
-                else
-                {
-                    fornecedorFisico.DataUltimaAtualizacao = DateTime.UtcNow;
-                    _context.Entry(fornecedorFisico).Property(x => x.Id).IsModified = false;
-
-                    _context.Update(fornecedorFisico);
-
-                }
-
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+               await _fornecedorFisicoService.Create(fornecedorFisico);
+                return RedirectToAction("Index");
 
             }
             return View(fornecedorFisico);
@@ -84,16 +54,9 @@ namespace GestaoCompras.Controllers
 
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var fornecedorFisico = await _context.FornecedorFisico.FindAsync(id);
-            if (fornecedorFisico == null)
-            {
-                return NotFound();
-            }
+            var fornecedorFisico = _fornecedorFisicoService.Edit(id).Result;
+
             ViewData["Title"] = "Editar Fornecedor Fisico";
 
             return View("Create", fornecedorFisico);
@@ -101,9 +64,7 @@ namespace GestaoCompras.Controllers
 
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var fornecedorFisico = await _context.FornecedorFisico.FindAsync(id);
-            _context.FornecedorFisico.Remove(fornecedorFisico);
-            await _context.SaveChangesAsync();
+             await _fornecedorFisicoService.DeleteConfirmed(id);
             return RedirectToAction("Index");
         }
     }
