@@ -1,0 +1,82 @@
+﻿@model List<GestaoCompras.Models.FornecedorFisico>
+<div class="fade-in">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <b>@ViewData["Title"]</b>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+
+                                <label for="fantasia">Nacional</label>
+                                <select class="form-control" name="nacional" asp-items="Html.GetEnumSelectList<Nacional>()">
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="cpf">CPF</label>
+                                <input class="form-control numero" name="cpf" type="text" value="@Context.Request.Query["cpf"]">
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <a class="btn btn-primary" href="/FornecedorFisico/Create">Novo</a>
+
+                                <button type="submit" class="btn btn-success float-right">Pesquisar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    @if (Model.Any())
+                    {
+
+                        <table class="table table-striped table-hover table-sm mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Tipo de Pessoa</th>
+                                    <th>Nacional</th>
+                                    <th>CPF</th>
+                                    <th>Nome</th>
+                                    <th style="width:100px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.TipoPessoaFisica</td>
+                                        <td>@item.NacionalFisico</td>
+                                        <td>@Convert.ToInt64(item.Cpf).ToString(@"000\.000\.000\-00")</td>
+                                        <td>@item.Nome</td>
+                                        <td>
+                                            <a href="/FornecedorFisico/Edit?Id=@item.Id" title="Editar" class="btn btn-pill btn-success">
+                                            </a>
+                                             @if (Convert.ToString(item.SituacaoFisico) == "Elaboração" || (Convert.ToString(item.SituacaoFisico) == "Desativar"))
+                                            {
+                                                <a href="/FornecedorFisico/DeleteConfirmed?Id=@item.Id" title="Excluir" class="btn btn-pill btn-danger">
+                                                </a>
+
+
+                                            }
+
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="mt-4 text-center text-primary"><b>Nenhum registro encontrado!</b></p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

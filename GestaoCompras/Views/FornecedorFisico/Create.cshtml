@@ -1,0 +1,136 @@
+﻿@model GestaoCompras.Models.FornecedorFisico
+@section Scripts {
+<script src="~/js/FornecedorFisico.js"></script>
+}
+
+<div class="fade-in">
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-6" style="text-align: left;">
+                                <strong>@ViewData["Title"]</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                @if (Model != null && Model.Id != 0)
+                                {
+                                    <input type="hidden" asp-for="Id" class="form-control" />
+
+                                }
+                                <label asp-for="TipoPessoaFisica" class="control-label"></label>
+                                <select class="form-control" asp-for="TipoPessoaFisica" asp-items="Html.GetEnumSelectList<TipoPessoaFisica>()">
+                                </select>
+                                <span asp-validation-for="TipoPessoaFisica" class="text-danger"></span>
+                            </div>
+                            <div class="form-group  col-md-3">
+                                <label asp-for="NacionalFisico" class="control-label"></label>
+                                <select asp-for="NacionalFisico" class="form-control" asp-items="Html.GetEnumSelectList<NacionalFisico>()">
+                                </select>
+                                <span asp-validation-for="NacionalFisico" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="DataUltimaAtualizacao" class="control-label"></label>
+                                <input asp-for="DataUltimaAtualizacao" class="form-control" />
+                                <span asp-validation-for="DataUltimaAtualizacao" class="text-danger"></span>
+                            </div>
+                            <div class="form-group  col-md-3">
+                                <label asp-for="SituacaoFisico" class="control-label"></label>
+                                <select asp-for="SituacaoFisico" class="form-control" asp-items="Html.GetEnumSelectList<SituacaoFisico>()">
+                                </select>
+                                <span asp-validation-for="SituacaoFisico" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <strong>Detalhes</strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label asp-for="Cpf" class="control-label"></label>
+                                <input asp-for="Cpf" class="form-control " />
+                                <span asp-validation-for="Cpf" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label asp-for="Nome" class="control-label"></label>
+                                <input asp-for="Nome" class="form-control" />
+                                <span asp-validation-for="Nome" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="EmailPrincipal" class="control-label"></label>
+                                <input asp-for="EmailPrincipal" class="form-control" />
+                                <span asp-validation-for="EmailPrincipal" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="EstadoCivil" class="control-label"></label>
+                                <select asp-for="EstadoCivil" class="form-control" asp-items="Html.GetEnumSelectList<EstadoCivil>()">
+                                    <option value="">Selecione</option>
+                                </select>
+                                <span asp-validation-for="EstadoCivil" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                             <div class="form-group col-md-3">
+                                <label asp-for="Profissao" class="control-label"></label>
+                                <select asp-for="Profissao" class="form-control" asp-items="Html.GetEnumSelectList<Profissao>()">
+                                    <option value="">Selecione</option>
+                                </select>
+                                <span asp-validation-for="EstadoCivil" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="Telefone1" class="control-label"></label>
+                                <input asp-for="Telefone1" class="form-control" />
+                                <span asp-validation-for="Telefone1" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label asp-for="Telefone2" class="control-label"></label>
+                                <input asp-for="Telefone2" class="form-control" />
+                                <span asp-validation-for="Telefone2" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="Telefone3" class="control-label"></label>
+                                <input asp-for="Telefone3" class="form-control" />
+                                <span asp-validation-for="Telefone3" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="form-group col-md-3">
+                                <label asp-for="Genero" class="control-label"></label>
+                                <select asp-for="Genero" class="form-control" asp-items="Html.GetEnumSelectList<Genero>()">
+                                </select>
+                                <span asp-validation-for="Genero" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="Nacionalidade" class="control-label"></label>
+                                <input asp-for="Nacionalidade" class="form-control" />
+                                <span asp-validation-for="EmailPrincipal" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <a class="btn btn-pill btn-danger" asp-action="Index">Cancelar</a>
+                                    <button class="btn btn-pill btn-success" id="salvar" type="submit">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+

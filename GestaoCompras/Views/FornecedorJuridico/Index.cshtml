@@ -1,0 +1,80 @@
+﻿@model List<GestaoCompras.Models.FornecedorJuridico>
+<div class="fade-in">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <b>@ViewData["Title"]</b>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+
+
+                            <div class="form-group col-md-3">
+                                <label for="fantasia">Nacional</label>
+                                <input class="form-control" name="fantasia" type="text" value="@Context.Request.Query["fantasia"]">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="cnpj">CNPJ</label>
+                                <input class="form-control numero" name="cnpj" type="text" value="@Context.Request.Query["cnpj"]">
+                            </div>
+
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <a class="btn btn-primary" href="/FornecedorJuridico/Create">Novo</a>
+
+                                <button type="submit" class="btn btn-success float-right">Pesquisar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    @if (Model.Any())
+                    {
+
+                        <table class="table table-striped table-hover table-sm mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Nacional</th>
+                                    <th>CNPJ</th>
+                                    <th>Razão Social</th>
+                                    <th>Porte</th>
+                                    <th style="width:100px"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Nacional</td>
+                                        <td>@item.Cnpj</td>
+                                        <td>@item.RazaoSocial</td>
+                                        <td>@item.Porte</td>
+                                        <td>
+                                            <a href="/FornecedorJuridico/Edit?Id=@item.Id" title="Editar" class="btn btn-pill btn-success">
+                                            </a>
+                                            @if (Convert.ToString(item.Situacao) == "Elaboração" || (Convert.ToString(item.Situacao) == "Desativar"))
+                                            {
+                                                <a href="/FornecedorJuridico/DeleteConfirmed?Id=@item.Id" title="Excluir" class="btn btn-pill btn-danger">
+                                                </a>
+                                            }
+
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="mt-4 text-center text-primary"><b>Nenhum registro encontrado!</b></p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

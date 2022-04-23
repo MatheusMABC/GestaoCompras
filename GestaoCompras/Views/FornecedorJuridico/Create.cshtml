@@ -1,0 +1,165 @@
+﻿@model GestaoCompras.Models.FornecedorJuridico
+@section Scripts {
+<script src="~/js/FornecedorJuridico.js"></script>
+}
+
+<div class="fade-in">
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-6" style="text-align: left;">
+                                <strong>@ViewData["Title"]</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                @if (Model != null && Model.Id != 0)
+                                {
+                                    <input type="hidden" asp-for="Id" class="form-control" />
+
+                                }
+                                <label asp-for="TipoPessoa" class="control-label"></label>
+                                <select readonly class="form-control" asp-for="TipoPessoa" asp-items="Html.GetEnumSelectList<TipoPessoa>()">
+                                    <option value="">Selecione</option>
+                                </select>
+                                <span asp-validation-for="TipoPessoa" class="text-danger"></span>
+                            </div>
+                            <div class="form-group  col-md-3">
+                                <label asp-for="Nacional" class="control-label"></label>
+                                <select asp-for="Nacional" class="form-control" asp-items="Html.GetEnumSelectList<Nacional>()">
+                                    <option value="">Selecione</option>
+
+                                </select>
+                                <span asp-validation-for="Nacional" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="DataUltimaAtualizacao" class="control-label"></label>
+                                <input asp-for="DataUltimaAtualizacao" class="form-control" />
+                                <span asp-validation-for="DataUltimaAtualizacao" class="text-danger"></span>
+                            </div>
+                            <div class="form-group  col-md-3">
+                                <label asp-for="Situacao" class="control-label"></label>
+                                <select asp-for="Situacao" class="form-control" asp-items="Html.GetEnumSelectList<Situacao>()">
+                                    <option value="">Selecione</option>
+                                </select>
+                                <span asp-validation-for="Situacao" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <strong>Detalhes</strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label asp-for="Cnpj" class="control-label"></label>
+                                <input asp-for="Cnpj" class="form-control " />
+                                <span asp-validation-for="Cnpj" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label asp-for="RazaoSocial" class="control-label"></label>
+                                <input asp-for="RazaoSocial" class="form-control" />
+                                <span asp-validation-for="RazaoSocial" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="NomeFantasia" class="control-label"></label>
+                                <input asp-for="NomeFantasia" class="form-control" />
+                                <span asp-validation-for="NomeFantasia" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="TipoEmpresa" class="control-label"></label>
+                                <select asp-for="TipoEmpresa" class="form-control" asp-items="Html.GetEnumSelectList<TipoEmpresa>()">
+                                    <option value="">Selecione</option>
+                                </select>
+                                <span asp-validation-for="TipoEmpresa" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label asp-for="DataConstituicao" class="control-label"></label>
+                                <input asp-for="DataConstituicao" class="form-control" type="date" />
+                                <span asp-validation-for="DataConstituicao" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="Porte" class="control-label"></label>
+                                <select asp-for="Porte" class="form-control" asp-items="Html.GetEnumSelectList<Porte>()">
+                                    <option value="">Selecione</option>
+                                </select>
+                                <span asp-validation-for="Porte" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="Telefone1" class="control-label"></label>
+                                <input asp-for="Telefone1" class="form-control" />
+                                <span asp-validation-for="Telefone1" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label asp-for="Telefone2" class="control-label"></label>
+                                <input asp-for="Telefone2" class="form-control" />
+                                <span asp-validation-for="Telefone2" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label asp-for="Telefone3" class="control-label"></label>
+                                <input asp-for="Telefone3" class="form-control" />
+                                <span asp-validation-for="Telefone3" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="WebSite" class="control-label"></label>
+                                <input asp-for="WebSite" class="form-control" />
+                                <span asp-validation-for="WebSite" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="EmailPrincipal" class="control-label"></label>
+                                <input asp-for="EmailPrincipal" class="form-control" />
+                                <span asp-validation-for="EmailPrincipal" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="CaracterizacaoCapital" class="control-label"></label>
+                                <input asp-for="CaracterizacaoCapital" class="form-control" />
+                                <span asp-validation-for="CaracterizacaoCapital" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label asp-for="QuantidadeQuota" class="control-label"></label>
+                                <input asp-for="QuantidadeQuota" class="form-control" />
+                                <span asp-validation-for="QuantidadeQuota" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="ValorCota" class="control-label"></label>
+                                <input asp-for="ValorCota" class="form-control" />
+                                <span asp-validation-for="ValorCota" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label asp-for="CapitalSocial" class="control-label"></label>
+                                <input asp-for="CapitalSocial" class="form-control" />
+                                <span asp-validation-for="CapitalSocial" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <a class="btn btn-pill btn-danger" asp-action="Index">Cancelar</a>
+                                    <button class="btn btn-pill btn-success" id="salvar" type="submit">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
