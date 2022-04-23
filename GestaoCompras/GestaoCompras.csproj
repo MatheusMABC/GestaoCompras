@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\FornecedorFisico\Create.cshtml" />
+    <None Include="Views\FornecedorFisico\Index.cshtml" />
+    <None Include="Views\FornecedorJuridico\Create.cshtml" />
+    <None Include="Views\FornecedorJuridico\Index.cshtml" />
     <None Include="wwwroot\lib\jquery-mask\jquery.mask.js" />
   </ItemGroup>
 
