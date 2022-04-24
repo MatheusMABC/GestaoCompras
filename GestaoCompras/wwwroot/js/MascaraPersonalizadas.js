@@ -55,6 +55,8 @@
 
 
     $("#Cnpj").mask("99.999.999/9999-99");
+    $("#Cpf").mask('000.000.000-00');
+
     $("#CapitalSocial").mask("####0,00");
     $("#ValorCota").mask("####0,00");
     $("#QuantidadeQuota").mask("####0,00");

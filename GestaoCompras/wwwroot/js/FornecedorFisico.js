@@ -3,11 +3,12 @@
 
     $('#TipoPessoaFisica').prop('disabled', true);
     $("#DataUltimaAtualizacao").prop('disabled', true);
-    $("#Cpf").mask('000.000.000-00');
 
+    if ($("#Id").val() != undefined) {
+        if ($("#SituacaoFisico").val() == 1 || $("#SituacaoFisico").val() == 0) {
+            $('#salvar').prop('disabled', true);
 
-    if ($("#Situacao").val() == 1) {
-        $('#salvar').prop('disabled', true);
-
+        }
     }
+
 });

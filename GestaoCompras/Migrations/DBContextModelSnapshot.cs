@@ -91,7 +91,7 @@ namespace GestaoCompras.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FornecedorFisico");
+                    b.ToTable("FornecedorFisico", (string)null);
                 });
 
             modelBuilder.Entity("GestaoCompras.Models.FornecedorJuridico", b =>
@@ -175,7 +175,7 @@ namespace GestaoCompras.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FornecedorJuridico");
+                    b.ToTable("FornecedorJuridico", (string)null);
                 });
 #pragma warning restore 612, 618
         }
