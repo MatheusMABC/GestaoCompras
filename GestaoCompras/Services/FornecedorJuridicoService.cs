@@ -65,7 +65,7 @@ namespace GestaoCompras.Controllers
         }
 
         // GET: FornecedorFisico
-        public async Task<List<FornecedorJuridico>> Index(string cnpj, string razaoSocial, int? nacional)
+        public async Task<List<FornecedorJuridico>> Index(string cnpj, string razaoSocial, int? nacional, int? porte)
         {
             IQueryable<FornecedorJuridico> query = _context.FornecedorJuridico;
             if (cnpj != null)
@@ -80,6 +80,11 @@ namespace GestaoCompras.Controllers
             if (nacional != null)
             {
                 query = query.Where(t => (int)t.Nacional == nacional);
+
+            }
+            if (porte != null)
+            {
+                query = query.Where(t => (int)t.Porte == porte);
 
             }
             var listaFornecedoresJuridicos = await query.ToListAsync();

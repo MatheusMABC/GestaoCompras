@@ -16,6 +16,6 @@ namespace GestaoCompras.Controllers
         Task Create(FornecedorJuridico fornecedorFisico);
         Task<FornecedorJuridico> Edit(int? id);
         Task DeleteConfirmed(int id);
-        Task<List<FornecedorJuridico>> Index(string cnpj, string razaoSocial, int? nacional);
+        Task<List<FornecedorJuridico>> Index(string cnpj, string razaoSocial, int? nacional, int? porte);
     }
 }

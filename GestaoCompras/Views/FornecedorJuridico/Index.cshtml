@@ -14,6 +14,7 @@
 
                                 <label for="fantasia">Nacional</label>
                                 <select class="form-control" name="nacional" asp-items="Html.GetEnumSelectList<Nacional>()">
+                                    <option value="">Selecione</option>
                                 </select>
                             </div>
                              <div class="form-group col-md-3">
@@ -23,6 +24,13 @@
                             <div class="form-group col-md-3">
                                 <label for="cnpj">CNPJ</label>
                                 <input class="form-control numero" name="cnpj" type="text" id="Cnpj" value="@Context.Request.Query["cnpj"]">
+                            </div>
+                             <div class="form-group col-md-3">
+
+                                <label for="fantasia">Porte</label>
+                                <select class="form-control" name="porte" asp-items="Html.GetEnumSelectList<Porte>()">
+                                    <option value="">Selecione</option>
+                                </select>
                             </div>
 
                         </div>
