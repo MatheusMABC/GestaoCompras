@@ -27,6 +27,9 @@ namespace GestaoCompras.Controllers
             try
             {
                 fornecedorJuridico.Cnpj = fornecedorJuridico.Cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
+                fornecedorJuridico.Telefone1 = fornecedorJuridico.Telefone1.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
+                fornecedorJuridico.Telefone2 = fornecedorJuridico.Telefone2.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
+                fornecedorJuridico.Telefone3 = fornecedorJuridico.Telefone3.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
 
                 if (fornecedorJuridico.Id == 0)
                 {
@@ -74,25 +77,26 @@ namespace GestaoCompras.Controllers
         }
 
         // GET: FornecedorFisico
-        public async Task<List<FornecedorJuridico>> Index(string cpf, string nome, string nacional)
+        public async Task<List<FornecedorJuridico>> Index(string cnpj, string razaoSocial, int? nacional)
         {
-            var listaFornecedorJuridico = await _context.FornecedorJuridico.ToListAsync();
-            if (cpf != null)
+            IQueryable<FornecedorJuridico> query = _context.FornecedorJuridico;
+            if (cnpj != null)
             {
-                listaFornecedorJuridico.Where(t => t.Cnpj.Trim() == cpf.Trim().Replace(".", "").Replace("-", "")).ToList();
+                var cnpjFormatado = cnpj.Trim().Replace(".", "").Replace("/", "").Replace("-","");
+                query = query.Where(x => x.Cnpj == cnpjFormatado);
             }
-            if (nome != null)
+            if (razaoSocial != null)
             {
-                listaFornecedorJuridico.Where(t => t.NomeFantasia.Trim().ToUpper() == nome.Trim().ToUpper()).ToList();
-
+                query = query.Where(t => t.RazaoSocial.Trim().ToUpper() == razaoSocial.Trim().ToUpper());
             }
             if (nacional != null)
             {
-                var opcaoNacional = Convert.ToInt32(nacional) == 0 ? "Sim" : "Não";
-                listaFornecedorJuridico.Where(t => Convert.ToString(t.Nacional).Trim().ToUpper() == opcaoNacional.Trim().ToUpper()).ToList();
+                query = query.Where(t => (int)t.Nacional == nacional);
 
             }
-            return listaFornecedorJuridico.ToList();
+            var listaFornecedoresJuridicos = await query.ToListAsync();
+            return listaFornecedoresJuridicos;
+
         }
 
     }

@@ -4,6 +4,7 @@ using GestaoCompras.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestaoCompras.Migrations
 {
     [DbContext(typeof(DBContext))]
-    partial class DBContextModelSnapshot : ModelSnapshot
+    [Migration("20220424020056_Atualizando_FornecedorJuridico_CaracteroCap")]
+    partial class Atualizando_FornecedorJuridico_CaracteroCap
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,9 +106,6 @@ namespace GestaoCompras.Migrations
 
                     b.Property<decimal>("CapitalSocial")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("CaracterCap")
-                        .HasColumnType("int");
 
                     b.Property<string>("Cnpj")
                         .IsRequired()

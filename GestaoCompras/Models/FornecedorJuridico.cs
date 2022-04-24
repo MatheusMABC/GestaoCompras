@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GestaoCompras.Models
 {
@@ -28,6 +29,11 @@ namespace GestaoCompras.Models
         ME,
         EPP,
         EMP
+    }
+    public enum CaracterCap
+    {
+        Capital1,
+        Capital2
     }
     public class FornecedorJuridico
     {
@@ -91,8 +97,7 @@ namespace GestaoCompras.Models
 
         public string EmailPrincipal { get; set; }
         [Display(Name = "Caracterização do Capital ")]
-
-        public decimal? CaracterizacaoCapital { get; set; }
+        public CaracterCap CaracterCap { get; set; }
 
 
         [Display(Name = "Quantidade Quota")]

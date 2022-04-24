@@ -1,6 +1,9 @@
 ﻿@model GestaoCompras.Models.FornecedorJuridico
 @section Scripts {
 <script src="~/js/FornecedorJuridico.js"></script>
+<script src="~/js/MascaraPersonalizadas.js"></script>
+
+
 }
 
 <div class="fade-in">
@@ -26,14 +29,13 @@
 
                                 }
                                 <label asp-for="TipoPessoa" class="control-label"></label>
-                                <select  class="form-control" asp-for="TipoPessoa" asp-items="Html.GetEnumSelectList<TipoPessoa>()">
+                                <select class="form-control" asp-for="TipoPessoa" asp-items="Html.GetEnumSelectList<TipoPessoa>()">
                                 </select>
                                 <span asp-validation-for="TipoPessoa" class="text-danger"></span>
                             </div>
                             <div class="form-group  col-md-3">
                                 <label asp-for="Nacional" class="control-label"></label>
                                 <select asp-for="Nacional" class="form-control" asp-items="Html.GetEnumSelectList<Nacional>()">
-
                                 </select>
                                 <span asp-validation-for="Nacional" class="text-danger"></span>
                             </div>
@@ -119,9 +121,10 @@
                                 <span asp-validation-for="EmailPrincipal" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-3">
-                                <label asp-for="CaracterizacaoCapital" class="control-label"></label>
-                                <input asp-for="CaracterizacaoCapital" class="form-control" />
-                                <span asp-validation-for="CaracterizacaoCapital" class="text-danger"></span>
+                                <label asp-for="CaracterCap" class="control-label"></label>
+                                <select asp-for="CaracterCap" class="form-control" asp-items="Html.GetEnumSelectList<CaracterCap>()">
+                                </select>
+                                <span asp-validation-for="Porte" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="row">

@@ -21,7 +21,7 @@ namespace GestaoCompras.Controllers
         }
 
         // GET: FornecedorFisico
-        public async Task<IActionResult> Index(string cpf, string nome, string nacional)
+        public async Task<IActionResult> Index(string cpf, string nome, int? nacional)
         {
             ViewData["Title"] = "Lista de Fornecedores Fisicos";
 

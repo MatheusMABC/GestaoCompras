@@ -12,12 +12,16 @@
                             <div class="form-group col-md-3">
 
                                 <label for="fantasia">Nacional</label>
-                                <select class="form-control" name="nacional" asp-items="Html.GetEnumSelectList<Nacional>()">
+                                <select class="form-control" name="nacional" asp-items="Html.GetEnumSelectList<NacionalFisico>()">
                                 </select>
                             </div>
                             <div class="form-group col-md-3">
+                                <label for="nome">Nome</label>
+                                <input class="form-control numero" name="nome" type="text" value="@Context.Request.Query["nome"]">
+                            </div>
+                            <div class="form-group col-md-3">
                                 <label for="cpf">CPF</label>
-                                <input class="form-control numero" name="cpf" type="text" value="@Context.Request.Query["cpf"]">
+                                <input class="form-control numero" name="cpf" id="Cpf" type="text" value="@Context.Request.Query["cpf"]">
                             </div>
 
                         </div>
@@ -56,15 +60,11 @@
                                         <td>
                                             <a href="/FornecedorFisico/Edit?Id=@item.Id" title="Editar" class="btn btn-pill btn-success">
                                             </a>
-                                             @if (Convert.ToString(item.SituacaoFisico) == "Elaboração" || (Convert.ToString(item.SituacaoFisico) == "Desativar"))
+                                            @if (Convert.ToString(item.SituacaoFisico) == "Elaboração" || (Convert.ToString(item.SituacaoFisico) == "Desativar"))
                                             {
                                                 <a href="/FornecedorFisico/DeleteConfirmed?Id=@item.Id" title="Excluir" class="btn btn-pill btn-danger">
                                                 </a>
-
-
                                             }
-
-
                                         </td>
                                     </tr>
                                 }

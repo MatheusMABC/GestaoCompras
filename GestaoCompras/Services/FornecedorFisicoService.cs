@@ -13,25 +13,25 @@ namespace GestaoCompras.Controllers
         {
             _context = context;
         }
-        public async Task<List<FornecedorFisico>> Index(string cpf, string nome, string nacional)
+        public async Task<List<FornecedorFisico>> Index(string cpf, string nome, int? nacional)
         {
-            var listaFornecedoresFisicos = await _context.FornecedorFisico.ToListAsync();
+            IQueryable<FornecedorFisico> query = _context.FornecedorFisico;
             if (cpf != null)
             {
-                listaFornecedoresFisicos.Where(t => t.Cpf.Trim() == cpf.Trim().Replace(".", "").Replace("-", "")).ToList();
+                var cpfFormatado = cpf.Trim().Replace(".", "").Replace("-", "");
+                query = query.Where(x => x.Cpf == cpfFormatado);
             }
             if (nome != null)
             {
-                listaFornecedoresFisicos.Where(t => t.Nome.Trim().ToUpper() == nome.Trim().ToUpper()).ToList();
-
+                query = query.Where(t => t.Nome.Trim().ToUpper() == nome.Trim().ToUpper());
             }
             if (nacional != null)
             {
-                var opcaoNacional = Convert.ToInt32(nacional) == 0 ? "Sim" : "Não";
-                listaFornecedoresFisicos.Where(t => Convert.ToString(t.NacionalFisico).Trim().ToUpper() == opcaoNacional.Trim().ToUpper()).ToList();
+                query = query.Where(t =>(int)t.NacionalFisico == nacional);
 
             }
-            return listaFornecedoresFisicos.ToList();
+            var listaFornecedoresFisicos = await query.ToListAsync();
+            return listaFornecedoresFisicos;
         }
 
 

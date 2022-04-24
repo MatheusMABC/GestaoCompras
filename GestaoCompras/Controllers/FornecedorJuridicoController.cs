@@ -22,11 +22,11 @@ namespace GestaoCompras.Controllers
         }
 
         // GET: FornecedorJuridico
-        public async Task<IActionResult> Index(string cpf, string nome, string nacional)
+        public async Task<IActionResult> Index(string cnpj, string razaoSocial, int? nacional)
         {
             ViewData["Title"] = "Listar Fornecedores Juridicos";
 
-            return View(await _fornecedorJuridicoService.Index(cpf, nome, nacional));
+            return View(await _fornecedorJuridicoService.Index(cnpj, razaoSocial, nacional));
         }
         // GET: FornecedorJuridico/Create
         public IActionResult Create()
