@@ -10,5 +10,9 @@
 
         }
     }
+    if ($("#Id").val() == undefined) {
+        $("#SituacaoFisico").val(2);
+
+    }
 
 });

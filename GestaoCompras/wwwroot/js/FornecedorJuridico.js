@@ -9,5 +9,9 @@
 
         }
     }
+    if ($("#Id").val() == undefined) {
+        $("#Situacao").val(2);
+
+    }
     $("#CapitalSocial").val() == '' ? $("#CapitalSocial").val(0.00) : $("#CapitalSocial").val();
 });
