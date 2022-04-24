@@ -11,7 +11,7 @@ using GestaoCompras.Models;
 
 namespace GestaoCompras.Controllers
 {
-    public class FornecedorJuridicoService: IFornecedorJuridicoService
+    public class FornecedorJuridicoService : IFornecedorJuridicoService
     {
         private readonly DBContext _context;
 
@@ -24,38 +24,28 @@ namespace GestaoCompras.Controllers
         [ValidateAntiForgeryToken]
         public async Task Create(FornecedorJuridico fornecedorJuridico)
         {
-            try
+            fornecedorJuridico.Cnpj = fornecedorJuridico.Cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
+            fornecedorJuridico.Telefone1 = fornecedorJuridico.Telefone1.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
+            fornecedorJuridico.Telefone2 = fornecedorJuridico.Telefone2.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
+            fornecedorJuridico.Telefone3 = fornecedorJuridico.Telefone3.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
+
+            if (fornecedorJuridico.Id == 0)
             {
-                fornecedorJuridico.Cnpj = fornecedorJuridico.Cnpj.Replace(".", "").Replace("/", "").Replace("-", "");
-                fornecedorJuridico.Telefone1 = fornecedorJuridico.Telefone1.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
-                fornecedorJuridico.Telefone2 = fornecedorJuridico.Telefone2.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
-                fornecedorJuridico.Telefone3 = fornecedorJuridico.Telefone3.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
+                fornecedorJuridico.DataCadastro = DateTime.UtcNow;
+                fornecedorJuridico.DataUltimaAtualizacao = DateTime.UtcNow;
 
-                if (fornecedorJuridico.Id == 0)
-                {
-                    fornecedorJuridico.DataCadastro = DateTime.UtcNow;
-                    fornecedorJuridico.DataUltimaAtualizacao = DateTime.UtcNow;
+                await _context.AddAsync(fornecedorJuridico);
+            }
+            else
+            {
+                fornecedorJuridico.DataUltimaAtualizacao = DateTime.UtcNow;
+                _context.Entry(fornecedorJuridico).Property(x => x.Id).IsModified = false;
 
-                    await _context.AddAsync(fornecedorJuridico);
-                }
-                else
-                {
-                    fornecedorJuridico.DataUltimaAtualizacao = DateTime.UtcNow;
-                    _context.Entry(fornecedorJuridico).Property(x => x.Id).IsModified = false;
-
-                    _context.Update(fornecedorJuridico);
-
-                }
-
-                await _context.SaveChangesAsync();
+                _context.Update(fornecedorJuridico);
 
             }
-            catch (Exception ex)
-            {
 
-                throw ex;
-            }
-
+            await _context.SaveChangesAsync();
 
         }
 
@@ -66,8 +56,6 @@ namespace GestaoCompras.Controllers
             var fornecedorJuridico = await _context.FornecedorJuridico.FindAsync(id);
             _context.FornecedorJuridico.Remove(fornecedorJuridico);
             await _context.SaveChangesAsync();
-
-
         }
 
         public async Task<FornecedorJuridico> Edit(int? id)
@@ -82,7 +70,7 @@ namespace GestaoCompras.Controllers
             IQueryable<FornecedorJuridico> query = _context.FornecedorJuridico;
             if (cnpj != null)
             {
-                var cnpjFormatado = cnpj.Trim().Replace(".", "").Replace("/", "").Replace("-","");
+                var cnpjFormatado = cnpj.Trim().Replace(".", "").Replace("/", "").Replace("-", "");
                 query = query.Where(x => x.Cnpj == cnpjFormatado);
             }
             if (razaoSocial != null)
